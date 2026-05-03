@@ -1,0 +1,36 @@
+---
+import { property } from '../data/property';
+
+// El precio se omite intencionalmente — solo visible para interesados que contacten
+const stats = [
+  { label: 'Dormitorios', value: String(property.bedrooms) },
+  { label: 'Baños',       value: String(property.bathrooms) },
+  { label: 'Superficie',  value: `${property.sqm} m²` },
+  { label: 'Terraza',     value: '20 m²' },
+  { label: 'Ubicación',   value: property.location },
+  { label: 'Metro',       value: 'Parque Bustamante (L5)' },
+];
+---
+
+<section id="sobre-la-propiedad" class="py-20 px-4 sm:px-6 bg-white">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-serif text-4xl text-warm-900 mb-6">Sobre la propiedad</h2>
+
+    <p class="text-warm-600 text-lg leading-relaxed mb-14 max-w-3xl">
+      {property.description}
+    </p>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      {stats.map((stat) => (
+        <div class="bg-warm-50 border border-warm-100 rounded-xl p-6">
+          <div class="text-xs font-semibold text-warm-500 uppercase tracking-widest mb-2">
+            {stat.label}
+          </div>
+          <div class="font-serif text-2xl text-warm-900 leading-tight">
+            {stat.value}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

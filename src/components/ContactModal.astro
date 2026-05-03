@@ -1,0 +1,350 @@
+---
+import { property } from '../data/property';
+---
+
+<!-- ===== MODAL ===== -->
+<div
+  id="contact-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  aria-hidden="true"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
+>
+  <!-- Backdrop -->
+  <div
+    id="modal-backdrop"
+    class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+  ></div>
+
+  <!-- Panel -->
+  <div
+    id="modal-panel"
+    class="relative w-full max-w-lg bg-warm-50 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
+    role="document"
+  >
+    <!-- Botón cerrar -->
+    <button
+      id="modal-close-btn"
+      class="absolute top-4 right-4 p-2 text-warm-400 hover:text-warm-900 rounded-full hover:bg-warm-100 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+      aria-label="Cerrar"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="p-8">
+      <h2 id="modal-title" class="font-serif text-3xl text-warm-900 mb-1">Contactar</h2>
+      <p class="text-sm text-warm-500 mb-7">{property.title}</p>
+
+      <!-- ── Estado: formulario (idle / error) ── -->
+      <div id="form-container">
+        <form id="contact-form" novalidate>
+          <!-- Honeypot: bots lo rellenan, humanos no -->
+          <input
+            type="text"
+            name="website"
+            class="hidden"
+            aria-hidden="true"
+            tabindex="-1"
+            autocomplete="off"
+          />
+
+          <!-- Nombre -->
+          <div class="mb-5">
+            <label for="f-name" class="block text-sm font-medium text-warm-700 mb-1.5">
+              Nombre <span class="text-accent" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="f-name"
+              name="name"
+              required
+              minlength="2"
+              autocomplete="name"
+              class="w-full px-4 py-3 rounded-lg border border-warm-300 bg-white text-warm-900 placeholder-warm-400 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-colors"
+              placeholder="Tu nombre completo"
+            />
+            <p id="f-name-error" class="mt-1.5 text-sm text-red-600 hidden" role="alert"></p>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-5">
+            <label for="f-email" class="block text-sm font-medium text-warm-700 mb-1.5">
+              Correo electrónico <span class="text-accent" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="email"
+              id="f-email"
+              name="email"
+              required
+              autocomplete="email"
+              class="w-full px-4 py-3 rounded-lg border border-warm-300 bg-white text-warm-900 placeholder-warm-400 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-colors"
+              placeholder="tu@correo.com"
+            />
+            <p id="f-email-error" class="mt-1.5 text-sm text-red-600 hidden" role="alert"></p>
+          </div>
+
+          <!-- Teléfono (opcional) -->
+          <div class="mb-5">
+            <label for="f-phone" class="block text-sm font-medium text-warm-700 mb-1.5">
+              Teléfono
+              <span class="text-warm-400 font-normal">(opcional)</span>
+            </label>
+            <input
+              type="tel"
+              id="f-phone"
+              name="phone"
+              autocomplete="tel"
+              class="w-full px-4 py-3 rounded-lg border border-warm-300 bg-white text-warm-900 placeholder-warm-400 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-colors"
+              placeholder="+56 9 1234 5678"
+            />
+          </div>
+
+          <!-- Mensaje -->
+          <div class="mb-6">
+            <label for="f-message" class="block text-sm font-medium text-warm-700 mb-1.5">
+              Mensaje <span class="text-accent" aria-hidden="true">*</span>
+            </label>
+            <textarea
+              id="f-message"
+              name="message"
+              required
+              minlength="10"
+              rows="4"
+              class="w-full px-4 py-3 rounded-lg border border-warm-300 bg-white text-warm-900 placeholder-warm-400 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-colors resize-none"
+              placeholder="¿En qué podemos ayudarte? Cuéntanos sobre tu interés..."
+            ></textarea>
+            <p id="f-message-error" class="mt-1.5 text-sm text-red-600 hidden" role="alert"></p>
+          </div>
+
+          <!-- Error global -->
+          <div id="f-global-error" class="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-lg hidden" role="alert">
+            <p id="f-global-error-text" class="text-sm text-red-700"></p>
+          </div>
+
+          <!-- Botón enviar -->
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full py-3.5 px-6 bg-accent hover:bg-accent-dark disabled:bg-warm-300 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 flex items-center justify-center gap-2"
+          >
+            <svg
+              id="submit-spinner"
+              class="hidden animate-spin h-4 w-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span id="submit-label">Enviar mensaje</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- ── Estado: éxito ── -->
+      <div id="success-container" class="hidden py-8 text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-5">
+          <svg class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 class="font-serif text-2xl text-warm-900 mb-2">¡Mensaje enviado!</h3>
+        <p class="text-warm-500 text-sm">
+          Hemos recibido tu consulta y recibirás un correo de confirmación pronto.
+        </p>
+        <p class="text-warm-400 text-xs mt-4">Esta ventana se cerrará automáticamente...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { z } from 'zod';
+
+  // ── Esquema de validación ──────────────────────────────────────────────────
+  const schema = z.object({
+    name:    z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+    email:   z.string().email('Ingresa un correo electrónico válido'),
+    phone:   z.string().optional(),
+    message: z.string().min(10, 'El mensaje debe tener al menos 10 caracteres'),
+    website: z.string().optional(), // honeypot
+  });
+
+  // ── Referencias DOM ───────────────────────────────────────────────────────
+  const modal           = document.getElementById('contact-modal')!;
+  const backdrop        = document.getElementById('modal-backdrop')!;
+  const panel           = document.getElementById('modal-panel')!;
+  const closeBtn        = document.getElementById('modal-close-btn')!;
+  const form            = document.getElementById('contact-form') as HTMLFormElement;
+  const formContainer   = document.getElementById('form-container')!;
+  const successContainer = document.getElementById('success-container')!;
+  const submitBtn       = document.getElementById('submit-btn') as HTMLButtonElement;
+  const submitLabel     = document.getElementById('submit-label')!;
+  const submitSpinner   = document.getElementById('submit-spinner')!;
+  const globalError     = document.getElementById('f-global-error')!;
+  const globalErrorText = document.getElementById('f-global-error-text')!;
+
+  let previousFocus: HTMLElement | null = null;
+  let autoCloseTimer: ReturnType<typeof setTimeout> | null = null;
+
+  // ── Focus trap ────────────────────────────────────────────────────────────
+  function getFocusable(): HTMLElement[] {
+    return Array.from(
+      panel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input:not([type="hidden"]), select, [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
+
+  // ── Abrir / cerrar ────────────────────────────────────────────────────────
+  function openModal() {
+    previousFocus = document.activeElement as HTMLElement;
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    // Foco al primer elemento interactivo del panel
+    requestAnimationFrame(() => getFocusable()[0]?.focus());
+  }
+
+  function closeModal() {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (autoCloseTimer) clearTimeout(autoCloseTimer);
+    // Restaurar al estado idle después de la transición
+    setTimeout(resetToIdle, 200);
+    previousFocus?.focus();
+  }
+
+  function resetToIdle() {
+    form.reset();
+    clearAllErrors();
+    formContainer.classList.remove('hidden');
+    successContainer.classList.add('hidden');
+    setLoading(false);
+  }
+
+  // ── Estado loading ────────────────────────────────────────────────────────
+  function setLoading(on: boolean) {
+    submitBtn.disabled = on;
+    submitSpinner.classList.toggle('hidden', !on);
+    submitLabel.textContent = on ? 'Enviando...' : 'Enviar mensaje';
+  }
+
+  // ── Errores ───────────────────────────────────────────────────────────────
+  function showFieldError(fieldId: string, msg: string) {
+    const input = document.getElementById(fieldId);
+    const errorEl = document.getElementById(`${fieldId}-error`);
+    input?.classList.add('border-red-400');
+    if (errorEl) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+    }
+  }
+
+  function clearFieldError(fieldId: string) {
+    const input = document.getElementById(fieldId);
+    const errorEl = document.getElementById(`${fieldId}-error`);
+    input?.classList.remove('border-red-400');
+    if (errorEl) errorEl.classList.add('hidden');
+  }
+
+  function clearAllErrors() {
+    ['f-name', 'f-email', 'f-message'].forEach(clearFieldError);
+    globalError.classList.add('hidden');
+  }
+
+  function showGlobalError(msg: string) {
+    globalErrorText.textContent = msg;
+    globalError.classList.remove('hidden');
+    setLoading(false);
+  }
+
+  // ── Envío del formulario ──────────────────────────────────────────────────
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearAllErrors();
+
+    const data = {
+      name:    (form.elements.namedItem('name')    as HTMLInputElement).value.trim(),
+      email:   (form.elements.namedItem('email')   as HTMLInputElement).value.trim(),
+      phone:   (form.elements.namedItem('phone')   as HTMLInputElement).value.trim(),
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim(),
+      website: (form.elements.namedItem('website') as HTMLInputElement).value,
+    };
+
+    // Validación cliente
+    const result = schema.safeParse(data);
+    if (!result.success) {
+      const issues = result.error.flatten().fieldErrors;
+      if (issues['name']?.[0])    showFieldError('f-name',    issues['name'][0]);
+      if (issues['email']?.[0])   showFieldError('f-email',   issues['email'][0]);
+      if (issues['message']?.[0]) showFieldError('f-message', issues['message'][0]);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const json = (await res.json()) as { ok: boolean; error?: string };
+
+      if (json.ok) {
+        formContainer.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+        autoCloseTimer = setTimeout(closeModal, 4000);
+      } else {
+        showGlobalError(json.error ?? 'Ocurrió un error. Por favor intenta de nuevo.');
+      }
+    } catch {
+      showGlobalError('Error de conexión. Verifica tu internet e intenta de nuevo.');
+    }
+  });
+
+  // ── Limpiar error de campo al escribir ────────────────────────────────────
+  ['f-name', 'f-email', 'f-message'].forEach((id) => {
+    document.getElementById(id)?.addEventListener('input', () => clearFieldError(id));
+  });
+
+  // ── Eventos de cierre ─────────────────────────────────────────────────────
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (modal.getAttribute('aria-hidden') === 'true') return;
+
+    if (e.key === 'Escape') {
+      closeModal();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      const focusable = getFocusable();
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          last?.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === last) {
+          first?.focus();
+          e.preventDefault();
+        }
+      }
+    }
+  });
+
+  // ── Escuchar evento de apertura ───────────────────────────────────────────
+  document.addEventListener('open-contact-modal', openModal);
+</script>

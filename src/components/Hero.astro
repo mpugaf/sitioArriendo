@@ -1,0 +1,35 @@
+---
+import { CldImage } from 'astro-cloudinary';
+import { property, images } from '../data/property';
+
+const heroImage = images.find((img) => img.isHero) ?? images[0]!;
+---
+
+<section class="relative h-[90vh] min-h-[560px] max-h-[960px] overflow-hidden">
+  <CldImage
+    src={heroImage.cloudinaryPublicId}
+    width={1920}
+    height={1080}
+    alt={heroImage.alt}
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
+    fetchpriority="high"
+    format="auto"
+    quality="auto"
+  />
+
+  <!-- Gradient overlay bottom-to-top -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"></div>
+
+  <!-- Text content -->
+  <div class="absolute bottom-0 left-0 right-0 px-6 pb-14 sm:px-12 sm:pb-20">
+    <div class="max-w-4xl">
+      <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl text-white leading-tight mb-4">
+        {property.title}
+      </h1>
+      <p class="text-lg sm:text-xl text-white/80 max-w-xl">
+        {property.subtitle}
+      </p>
+    </div>
+  </div>
+</section>

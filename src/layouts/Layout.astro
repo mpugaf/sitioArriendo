@@ -1,0 +1,48 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import { getCldImageUrl } from 'astro-cloudinary/helpers';
+import { property, images } from '../data/property';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = property.title,
+  description = property.description.slice(0, 160),
+} = Astro.props;
+
+const heroImage = images.find((img) => img.isHero);
+const ogImage = heroImage
+  ? getCldImageUrl({ src: heroImage.cloudinaryPublicId, width: 1200, height: 630, crop: 'fill', format: 'auto', quality: 'auto' })
+  : '';
+
+const pageTitle = `${title} | Arriendo`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#B85C38" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Preconnect Cloudinary -->
+    <link rel="preconnect" href="https://res.cloudinary.com" />
+  </head>
+  <body class="bg-warm-50 font-sans text-warm-900 antialiased">
+    <slot />
+  </body>
+</html>

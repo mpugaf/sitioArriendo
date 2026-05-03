@@ -1,0 +1,95 @@
+---
+import { CldImage } from 'astro-cloudinary';
+import { getCldImageUrl } from 'astro-cloudinary/helpers';
+import { images } from '../data/property';
+
+const galleryImages = images.filter((img) => !img.isHero);
+
+function largeUrl(publicId: string): string {
+  return getCldImageUrl({ src: publicId, width: 1920, format: 'auto', quality: 'auto' });
+}
+---
+
+<section id="galeria" class="py-20 px-4 sm:px-6 bg-warm-50">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="font-serif text-4xl text-warm-900 mb-12">Galería</h2>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      id="property-gallery"
+    >
+      {galleryImages.map((img) => (
+        <a
+          href={largeUrl(img.cloudinaryPublicId)}
+          data-pswp-width="1920"
+          data-pswp-height="1280"
+          data-caption={img.description}
+          class="gallery-item group block overflow-hidden rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-zoom-in"
+        >
+          <div class="overflow-hidden">
+            <CldImage
+              src={img.cloudinaryPublicId}
+              width={800}
+              height={534}
+              alt={img.alt}
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+              loading="lazy"
+              format="auto"
+              quality="auto"
+            />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import 'photoswipe/style.css';
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: '#property-gallery',
+    children: 'a.gallery-item',
+    pswpModule: () => import('photoswipe'),
+    padding: { top: 20, bottom: 60, left: 20, right: 20 },
+  });
+
+  // Caption como capa flotante en la parte inferior
+  lightbox.on('uiRegister', () => {
+    lightbox.pswp?.ui.registerElement({
+      name: 'caption',
+      order: 9,
+      isButton: false,
+      appendTo: 'root',
+      html: '',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onInit(el: HTMLElement, pswp: any) {
+        pswp.on('change', () => {
+          const slideEl = pswp.currSlide?.data?.element as HTMLElement | undefined;
+          const caption = slideEl?.dataset['caption'] ?? '';
+          el.innerHTML = caption
+            ? `<div class="pswp-caption-inner">${caption}</div>`
+            : '';
+        });
+      },
+    });
+  });
+
+  lightbox.init();
+</script>
+
+<style is:global>
+  .pswp-caption-inner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Inter Variable', system-ui, sans-serif;
+  }
+</style>
