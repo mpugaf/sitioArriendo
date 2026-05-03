@@ -2,25 +2,33 @@
 import { property } from '../data/property';
 ---
 
-<footer class="bg-warm-900 text-warm-300 py-12 px-4 sm:px-6">
+<footer class="bg-warm-900 text-warm-300 py-14 px-4 sm:px-6">
   <div class="max-w-5xl mx-auto">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-      <div>
-        <h3 class="font-serif text-xl text-white mb-1">{property.title}</h3>
-        <p class="text-sm text-warm-400">{property.address}</p>
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
+      <div class="max-w-sm">
+        <h3 class="font-serif text-2xl text-white mb-2">Encontraste</h3>
+        <p class="text-sm text-warm-400 leading-relaxed">
+          A veces uno simplemente lo sabe cuando lo ve. Si llegaste hasta acá,
+          probablemente ya encontraste el lugar donde quieres vivir.
+        </p>
       </div>
 
-      <button
-        id="footer-open-modal-btn"
-        class="self-start sm:self-auto px-6 py-3 bg-accent hover:bg-accent-light text-white text-sm font-medium rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-warm-900"
-        aria-haspopup="dialog"
-      >
-        Solicitar información
-      </button>
+      <div class="flex flex-col gap-2 sm:text-right">
+        <p class="text-xs text-warm-500 uppercase tracking-widest">Ubicación</p>
+        <p class="text-warm-300 text-sm">{property.address}</p>
+        <button
+          id="footer-open-modal-btn"
+          class="mt-3 self-start sm:self-end px-6 py-3 bg-accent hover:bg-accent-light text-white text-sm font-medium rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-warm-900"
+          aria-haspopup="dialog"
+        >
+          Me interesa
+        </button>
+      </div>
     </div>
 
-    <div class="mt-10 pt-6 border-t border-warm-800 text-xs text-warm-500">
-      <p>© {new Date().getFullYear()} {property.title}. Todos los derechos reservados.</p>
+    <div class="mt-10 pt-6 border-t border-warm-800 text-xs text-warm-500 flex flex-col sm:flex-row sm:justify-between gap-2">
+      <p>© {new Date().getFullYear()} Encontraste — Conectamos personas con el lugar donde quieren vivir.</p>
+      <p>Santiago, Chile</p>
     </div>
   </div>
 </footer>
