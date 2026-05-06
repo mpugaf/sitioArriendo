@@ -31,7 +31,7 @@ export const property: Property = {
     'A menos de dos cuadras del Metro Parque Bustamante (Línea 5) y del parque homónimo, ' +
     'rodeado de restaurantes, ciclovías, áreas verdes, centros culturales, clínicas y supermercados. ' +
     'Edificio con portería 24/7.',
-  sqm: 90,
+  sqm: 72,
   bedrooms: 2,
   bathrooms: 1,
   location: 'Santiago Centro / Providencia, Santiago',
