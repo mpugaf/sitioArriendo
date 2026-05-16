@@ -28,9 +28,9 @@ export const property: Property = {
     'con vista despejada al Cerro San Cristóbal y al entorno arborizado del sector. ' +
     'Distribuido en cocina cerrada completamente equipada, living-comedor, dos dormitorios ' +
     '(el principal es un espacio amplio resultado de la unión de dos dormitorios originales) y baño. ' +
-    'A menos de dos cuadras del Metro Parque Bustamante (Línea 5) y del parque homónimo, ' +
+    'A menos de tres cuadras del Metro Parque Bustamante (Línea 5) y del parque homónimo, ' +
     'rodeado de restaurantes, ciclovías, áreas verdes, centros culturales, clínicas y supermercados. ' +
-    'Edificio con portería 24/7.',
+    'Edificio con portería 24/7, gimnasio, lavandería y sala de eventos disponibles para residentes.',
   sqm: 72,
   bedrooms: 2,
   bathrooms: 1,
