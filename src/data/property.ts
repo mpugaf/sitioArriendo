@@ -59,7 +59,7 @@ export const images: PropertyImage[] = [
     id: '2',
     cloudinaryPublicId: 'v2-cocina1_mqkpqw',
     alt: 'Cocina cerrada y equipada',
-    description: 'Cocina completamente equipada y cerrada: refrigerador, cocina a gas, horno y lavadora incluidos. El cierre mantiene las olores separadas del living.',
+    description: 'Cocina completamente equipada y cerrada: Cocina a gas y horno. La cocina cerrada mantiene los olores separados del living.',
     isHero: false,
   },
   {
