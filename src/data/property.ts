@@ -30,7 +30,8 @@ export const property: Property = {
     '(el principal es un espacio amplio resultado de la unión de dos dormitorios originales) y baño. ' +
     'A menos de tres cuadras del Metro Parque Bustamante (Línea 5) y del parque homónimo, ' +
     'rodeado de restaurantes, ciclovías, áreas verdes, centros culturales, clínicas y supermercados. ' +
-    'Edificio con portería 24/7, gimnasio, lavandería y sala de eventos disponibles para residentes.',
+    'Edificio con portería 24/7, gimnasio, lavandería y sala de eventos disponibles para residentes. ' +
+    'Una combinación así — terraza privada, dormitorio de esta amplitud, en este sector y a este precio — prácticamente no existe en el mercado. Y cuando se arriende, no vuelve.',
   sqm: 72,
   bedrooms: 2,
   bathrooms: 1,
