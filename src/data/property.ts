@@ -43,7 +43,7 @@ export const property: Property = {
 export const images: PropertyImage[] = [
   {
     id: 'hero',
-    cloudinaryPublicId: 'property/v2-terraza1_jxu2xt',
+    cloudinaryPublicId: 'v2-terraza1_jxu2xt',
     alt: 'Terraza privada con vista al Cerro San Cristóbal',
     description: 'Terraza privada de 20 m² con vista despejada al Cerro San Cristóbal.',
     isHero: true,
