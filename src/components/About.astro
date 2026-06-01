@@ -5,12 +5,14 @@ const galleryTotal = images.filter(img => !img.isHero).length;
 const formattedRent = `$${property.monthlyRent.toLocaleString('es-CL')}`;
 
 const stats = [
-  { label: 'Dormitorios', value: String(property.bedrooms) },
-  { label: 'Baños',       value: String(property.bathrooms) },
-  { label: 'Superficie',  value: `${property.sqm} m²` },
-  { label: 'Terraza',     value: '20 m²' },
-  { label: 'Ubicación',   value: property.location },
-  { label: 'Metro',       value: 'Parque Bustamante (L5)' },
+  { label: 'Dormitorios',       value: String(property.bedrooms) },
+  { label: 'Baños',             value: String(property.bathrooms) },
+  { label: 'Superficie',        value: `${property.sqm} m²` },
+  { label: 'Terraza',           value: '20 m²' },
+  { label: 'Bodega',            value: property.storage ? 'Incluida' : 'No incluida' },
+  { label: 'Estacionamiento',   value: property.parking ? 'Incluido' : 'No incluido' },
+  { label: 'Ubicación',         value: property.location },
+  { label: 'Metro',             value: 'Parque Bustamante (L5)' },
 ];
 ---
 

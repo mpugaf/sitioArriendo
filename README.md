@@ -81,6 +81,8 @@ export const property: Property = {
   sqm:            95,          // metros cuadrados
   bedrooms:       3,
   bathrooms:      2,
+  storage:        true,        // bodega incluida
+  parking:        true,        // estacionamiento incluido
   location:       'Barrio, Ciudad',
   address:        'Dirección exacta',
   monthlyRent:    850000,      // en CLP

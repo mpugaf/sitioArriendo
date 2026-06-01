@@ -13,6 +13,8 @@ export interface Property {
   sqm: number;
   bedrooms: number;
   bathrooms: number;
+  storage: boolean;
+  parking: boolean;
   location: string;
   address: string;
   monthlyRent: number;    // interno, no se muestra en el sitio
@@ -35,6 +37,8 @@ export const property: Property = {
   sqm: 72,
   bedrooms: 2,
   bathrooms: 1,
+  storage: true,
+  parking: true,
   location: 'Santiago Centro / Providencia, Santiago',
   address: 'Gral. Jofré 67, Santiago, Región Metropolitana',
   monthlyRent: 580000,

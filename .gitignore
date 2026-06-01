@@ -1,5 +1,6 @@
 # Dependencias
 node_modules/
+key.txt
 
 # Build
 dist/
